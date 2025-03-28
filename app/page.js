@@ -40,10 +40,26 @@ export default function CheckoutPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Payment processed successfully!');
+    try {
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        alert('Payment processed successfully!');
+      } else {
+        alert('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('Payment failed. Please try again.');
+    }
   };
 
   if (loading) {

@@ -1,4 +1,6 @@
 export async function GET() {
+
+  // DB Connection
   const mockData = {
     cart: {
       items: [
