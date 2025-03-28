@@ -1,28 +1,35 @@
 export async function POST(request) {
   try {
-    const paymentData = await request.json();
-    
-    // Here you would typically process the payment data
-    // For now, we'll just return a success response
-    
-    return new Response(JSON.stringify({ 
-      success: true, 
-      message: 'Payment processed successfully' 
-    }), {
+    const data = await request.json();
+
+    const { cardNumber, expiryDate, cvv, cardHolderName } = data;
+
+    if (!cardNumber || !expiryDate || !cvv || !cardHolderName) {
+      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const paymentResult = await processPayment(data);
+
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      message: 'Error processing payment' 
-    }), {
+    console.error('Payment processing error:', error);
+    return new Response(JSON.stringify({ error: 'Payment processing failed' }), {
       status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' }
     });
   }
+}
+
+async function processPayment(data) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 1000);
+  });
 } 

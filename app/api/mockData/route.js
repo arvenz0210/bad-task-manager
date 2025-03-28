@@ -1,30 +1,56 @@
 export async function GET() {
+  try {
+    // Bad practice: Hardcoded data
+    // Bad practice: No proper error handling
+    // Bad practice: No proper validation
+    const mockData = {
+      cart: {
+        items: [
+          {
+            id: 1,
+            name: 'Product 1',
+            description: 'This is a product description',
+            price: 99.99,
+            quantity: 1,
+            image: 'https://via.placeholder.com/100'
+          },
+          {
+            id: 2,
+            name: 'Product 2',
+            description: 'This is another product description',
+            price: 149.99,
+            quantity: 2,
+            image: 'https://via.placeholder.com/100'
+          }
+        ],
+        subtotal: 399.97,
+        tax: 39.99,
+        shipping: 10.00,
+        total: 449.96
+      },
+      payment: {
+        cardNumber: '4111111111111111',
+        expiryDate: '12/25',
+        cvv: '123',
+        cardHolderName: 'John Doe'
+      }
+    };
 
-  // DB Connection
-  const mockData = {
-    cart: {
-      items: [
-        {
-          id: "1",
-          name: "DJI Mini 3 Pro Drone",
-          price: 759.99,
-          quantity: 1,
-          image: "https://tododrones.com.ar/wp-content/uploads/2023/05/mini-3-rc-1.jpg",
-          description: "DJI Mini 3 Pro with 4K HDR Video, 48MP Photo, 34-min Flight Time, Tri-Directional Obstacle Sensing, and Remote Controller with Screen."
-        }
-      ],
-      subtotal: 759.99,
-      tax: 76.00,
-      shipping: 25.00,
-      total: 860.99
-    },
-    payment: {
-      cardNumber: "4111 1111 1111 1111",
-      expiryDate: "12/25",
-      cvv: "123",
-      cardHolderName: "John Doe"
-    }
-  };
-
-  return Response.json(mockData);
+    // Bad practice: No proper error handling
+    // Bad practice: No proper validation
+    // Bad practice: No proper security
+    return new Response(JSON.stringify(mockData), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    // Bad practice: No proper error handling
+    // Bad practice: No proper error logging
+    // Bad practice: No proper security
+    console.error('Error fetching mock data:', error);
+    return new Response(JSON.stringify({ error: 'Failed to fetch mock data' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 } 
