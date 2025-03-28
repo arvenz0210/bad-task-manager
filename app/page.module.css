@@ -166,3 +166,290 @@ a.secondary {
     filter: invert();
   }
 }
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.cartSummary {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.cartSummary h2 {
+  color: #444;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.cartItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.cartItem:last-child {
+  border-bottom: none;
+}
+
+.itemImageContainer {
+  flex-shrink: 0;
+  margin-right: 1.5rem;
+}
+
+.itemImage {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.itemDetails {
+  flex: 1;
+}
+
+.itemDetails h3 {
+  margin: 0 0 0.75rem 0;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.itemDescription {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.itemPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.quantity {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.totals {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  color: #666;
+}
+
+.grandTotal {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.section h2 {
+  color: #444;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.submitButton {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cartItem {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .itemImageContainer {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .itemImage {
+    width: 100%;
+    height: 200px;
+    max-width: 300px;
+  }
+
+  .itemDetails h3 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .itemDescription {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .itemPrice {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .price {
+    font-size: 1.1rem;
+  }
+
+  .totals {
+    padding: 1rem;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .formGroup input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+  .container {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .cartSummary {
+    padding: 1rem;
+  }
+
+  .itemImage {
+    height: 180px;
+  }
+
+  .itemDetails h3 {
+    font-size: 1.1rem;
+  }
+
+  .itemDescription {
+    font-size: 0.85rem;
+  }
+
+  .price {
+    font-size: 1rem;
+  }
+
+  .totalRow {
+    font-size: 0.9rem;
+  }
+
+  .grandTotal {
+    font-size: 1.1rem;
+  }
+}
