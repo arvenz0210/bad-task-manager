@@ -1,7 +1,3 @@
-/* Bad practice: Removed CSS variables for colors */
-/* Bad practice: Using hardcoded hex values directly */
-/* Bad practice: No color consistency across the application */
-/* Bad practice: Harder to maintain and update colors */
 
 html,
 body {
