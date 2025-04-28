@@ -14,13 +14,10 @@ export default function TaskManagementPage() {
     assignee: ''
   });
 
-  // Bad practice: No proper error handling
-  // Bad practice: No proper loading state
-  // Bad practice: No proper retry mechanism
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/mockData');
+      const response = await fetch('/api/tasks/search');
       const data: TaskData = await response.json();
       setTaskData(data);
       setFormData({
@@ -49,9 +46,6 @@ export default function TaskManagementPage() {
     }));
   };
 
-  // Bad practice: No proper validation
-  // Bad practice: No proper error handling
-  // Bad practice: No proper loading state
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -65,9 +59,6 @@ export default function TaskManagementPage() {
       
       if (response.ok) {
         alert('Task created successfully!');
-        // Bad practice: No proper state management
-        // Bad practice: No proper optimistic updates
-        // Bad practice: No proper error handling
         fetchTasks();
       } else {
         alert('Task creation failed. Please try again.');
@@ -107,7 +98,7 @@ export default function TaskManagementPage() {
       <h1 className={styles.title}>Task Management</h1>
       
       <div className={styles.taskSummary}>
-        <h2>Current Tasks</h2>
+        <h2 style={{ color: '#111' }}>Current Tasks</h2>
         {taskData.tasks.items.map(task => (
           <div key={task.id} className={styles.taskItem}>
             <div className={styles.taskStatusContainer}>
@@ -138,8 +129,8 @@ export default function TaskManagementPage() {
             padding: '0.5rem 0',
             borderBottom: '1px solid #ddd'
           }}>
-            <span style={{ fontWeight: 'bold' }}>Total Tasks:</span>
-            <span>{taskData.tasks.total}</span>
+            <span style={{ fontWeight: 'bold', color: '#000' }}>Total Tasks:</span>
+            <span style={{ color: '#000' }}>{taskData.tasks.total}</span>
           </div>
           <div style={{
             display: 'flex',
@@ -148,8 +139,8 @@ export default function TaskManagementPage() {
             padding: '0.5rem 0',
             borderBottom: '1px solid #ddd'
           }}>
-            <span style={{ fontWeight: 'bold' }}>Completed:</span>
-            <span>{taskData.tasks.completed}</span>
+            <span style={{ fontWeight: 'bold', color: '#000' }}>Completed:</span>
+            <span style={{ color: '#000' }}>{taskData.tasks.completed}</span>
           </div>
           <div style={{
             display: 'flex',
@@ -158,8 +149,8 @@ export default function TaskManagementPage() {
             padding: '0.5rem 0',
             borderBottom: '1px solid #ddd'
           }}>
-            <span style={{ fontWeight: 'bold' }}>In Progress:</span>
-            <span>{taskData.tasks.inProgress}</span>
+            <span style={{ fontWeight: 'bold', color: '#000' }}>In Progress:</span>
+            <span style={{ color: '#000' }}>{taskData.tasks.inProgress}</span>
           </div>
           <div style={{
             display: 'flex',
@@ -168,8 +159,8 @@ export default function TaskManagementPage() {
             color: '#d32f2f',
             fontWeight: 'bold'
           }}>
-            <span>Overdue:</span>
-            <span>{taskData.tasks.overdue}</span>
+            <span style={{ color: '#d32f2f' }}>Overdue:</span>
+            <span style={{ color: '#d32f2f' }}>{taskData.tasks.overdue}</span>
           </div>
         </div>
       </div>

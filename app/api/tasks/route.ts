@@ -1,8 +1,5 @@
 import { TaskFormData, Task } from '../../types';
 
-// Bad practice: In-memory database instead of a real database
-// Bad practice: No data persistence
-// Bad practice: No proper data access layer
 let dbTasks: Task[] = [
   {
     id: 1,
@@ -33,22 +30,13 @@ let dbTasks: Task[] = [
   }
 ];
 
-// Bad practice: Duplicate code between API routes
-// Bad practice: No proper data access layer
-// Bad practice: No proper error handling
 export async function GET() {
   try {
-    // Bad practice: No pagination
-    // Bad practice: No filtering
-    // Bad practice: No sorting
-    
-    // Bad practice: Using forEach to calculate stats instead of more efficient methods
     let completed = 0;
     let inProgress = 0;
     let overdue = 0;
     let total = 0;
     
-    // Bad practice: Inefficient counting with forEach
     dbTasks.forEach(task => {
       total++;
       
@@ -58,8 +46,6 @@ export async function GET() {
         inProgress++;
       }
       
-      // Bad practice: Complex logic inside forEach
-      // Bad practice: Date manipulation in a loop
       const dueDate = new Date(task.dueDate);
       const today = new Date();
       if (dueDate < today && task.status !== 'completed') {
@@ -101,11 +87,6 @@ export async function POST(request: Request) {
       });
     }
 
-    // Bad practice: No proper validation
-    // Bad practice: No proper sanitization
-    // Bad practice: No proper error handling
-    
-    // Bad practice: Using forEach to find max ID instead of more efficient methods
     let maxId = 0;
     dbTasks.forEach(task => {
       if (task.id > maxId) {
@@ -114,18 +95,15 @@ export async function POST(request: Request) {
     });
     
     const newTask: Task = {
-      id: maxId + 1, // Bad practice: Unsafe ID generation
+      id: maxId + 1,
       title: taskTitle,
-      description: `Task created at ${new Date().toISOString()}`, // Bad practice: Hardcoded description
+      description: `Task created at ${new Date().toISOString()}`,
       priority: priority as 'low' | 'medium' | 'high',
       status: 'pending',
       dueDate,
       assignee
     };
 
-    // Bad practice: No transaction
-    // Bad practice: No proper error handling
-    // Bad practice: No proper validation
     dbTasks.push(newTask);
 
     return new Response(JSON.stringify({ success: true, task: newTask }), {
@@ -141,9 +119,6 @@ export async function POST(request: Request) {
   }
 }
 
-// Bad practice: No proper error handling
-// Bad practice: No proper validation
-// Bad practice: No proper security
 async function processTask(data: TaskFormData): Promise<{ success: boolean }> {
   return new Promise((resolve) => {
     setTimeout(() => {

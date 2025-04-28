@@ -10,8 +10,8 @@ body {
 }
 
 body {
-  color: #171717; /* Bad practice: Hardcoded color instead of CSS variable */
-  background: #ffffff; /* Bad practice: Hardcoded color instead of CSS variable */
+  color: #171717;
+  background: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,7 +34,7 @@ a {
   }
   
   body {
-    color: #ededed; /* Bad practice: Hardcoded color instead of CSS variable */
-    background: #0a0a0a; /* Bad practice: Hardcoded color instead of CSS variable */
+    color: #ededed;
+    background: #0a0a0a;
   }
 }

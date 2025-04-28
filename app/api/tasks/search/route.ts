@@ -1,8 +1,5 @@
-import { TaskData, Task } from '../../types';
+import { TaskData, Task } from '../../../types';
 
-// Bad practice: In-memory database instead of a real database
-// Bad practice: No data persistence
-// Bad practice: No proper data access layer
 const dbTasks: Task[] = [
   {
     id: 1,
@@ -35,16 +32,11 @@ const dbTasks: Task[] = [
 
 export async function GET() {
   try {
-    // Bad practice: Using forEach instead of more efficient methods
-    // Bad practice: Mutating variables outside the loop
-    // Bad practice: No proper error handling
-    // Bad practice: No proper validation
     let completed = 0;
     let inProgress = 0;
     let overdue = 0;
     let total = 0;
     
-    // Bad practice: Inefficient counting with forEach
     dbTasks.forEach(task => {
       total++;
       
@@ -54,8 +46,6 @@ export async function GET() {
         inProgress++;
       }
       
-      // Bad practice: Complex logic inside forEach
-      // Bad practice: Date manipulation in a loop
       const dueDate = new Date(task.dueDate);
       const today = new Date();
       if (dueDate < today && task.status !== 'completed') {
@@ -79,17 +69,11 @@ export async function GET() {
       }
     };
 
-    // Bad practice: No proper error handling
-    // Bad practice: No proper error logging
-    // Bad practice: No proper security
     return new Response(JSON.stringify(mockData), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
-    // Bad practice: No proper error handling
-    // Bad practice: No proper error logging
-    // Bad practice: No proper security
     console.error('Error fetching mock data:', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch mock data' }), {
       status: 500,
