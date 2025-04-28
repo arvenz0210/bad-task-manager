@@ -175,9 +175,16 @@ a.secondary {
 
 .title {
   font-size: 2.5rem;
-  color: #333;
+  color: #fff;
   margin-bottom: 2rem;
   text-align: center;
+}
+
+.taskSummaryTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #000;
 }
 
 .taskSummary {

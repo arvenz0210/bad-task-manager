@@ -76,7 +76,7 @@ export default function TaskManagementPage() {
       <h1 className={styles.title}>Task Management</h1>
       
       <div className={styles.taskSummary}>
-        <h2>Current Tasks</h2>
+        <h2 className={styles.taskSummaryTitle}>Current Tasks</h2>
         {taskData.tasks.items.map(task => (
           <div key={task.id} className={styles.taskItem}>
             <div className={styles.taskStatusContainer}>
