@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
-import { TaskData, TaskFormData } from './types';
+import { TaskData, TaskFormData, Task } from './types';
 
 export default function TaskManagementPage() {
   const [taskData, setTaskData] = useState<TaskData | null>(null);
@@ -14,23 +14,31 @@ export default function TaskManagementPage() {
     assignee: ''
   });
 
-  useEffect(() => {
-    fetch('/api/mockData')
-      .then(res => res.json())
-      .then((data: TaskData) => {
-        setTaskData(data);
-        setFormData({
-          taskTitle: data.task.defaultTitle,
-          dueDate: data.task.defaultDueDate,
-          priority: data.task.defaultPriority,
-          assignee: data.task.defaultAssignee
-        });
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
+  // Bad practice: No proper error handling
+  // Bad practice: No proper loading state
+  // Bad practice: No proper retry mechanism
+  const fetchTasks = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/mockData');
+      const data: TaskData = await response.json();
+      setTaskData(data);
+      setFormData({
+        taskTitle: data.task.defaultTitle,
+        dueDate: data.task.defaultDueDate,
+        priority: data.task.defaultPriority,
+        assignee: data.task.defaultAssignee
       });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Failed to load tasks. Please refresh the page.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -41,6 +49,9 @@ export default function TaskManagementPage() {
     }));
   };
 
+  // Bad practice: No proper validation
+  // Bad practice: No proper error handling
+  // Bad practice: No proper loading state
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -54,6 +65,10 @@ export default function TaskManagementPage() {
       
       if (response.ok) {
         alert('Task created successfully!');
+        // Bad practice: No proper state management
+        // Bad practice: No proper optimistic updates
+        // Bad practice: No proper error handling
+        fetchTasks();
       } else {
         alert('Task creation failed. Please try again.');
       }
@@ -64,11 +79,27 @@ export default function TaskManagementPage() {
   };
 
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '100vh',
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: '#333'
+    }}>Loading...</div>;
   }
 
   if (!taskData) {
-    return <div className={styles.loading}>No data available</div>;
+    return <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '100vh',
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: '#333'
+    }}>No data available</div>;
   }
 
   return (
@@ -76,7 +107,7 @@ export default function TaskManagementPage() {
       <h1 className={styles.title}>Task Management</h1>
       
       <div className={styles.taskSummary}>
-        <h2 className={styles.taskSummaryTitle}>Current Tasks</h2>
+        <h2>Current Tasks</h2>
         {taskData.tasks.items.map(task => (
           <div key={task.id} className={styles.taskItem}>
             <div className={styles.taskStatusContainer}>
@@ -93,20 +124,50 @@ export default function TaskManagementPage() {
           </div>
         ))}
         
-        <div className={styles.stats}>
-          <div className={styles.statRow}>
-            <span>Total Tasks:</span>
+        <div style={{
+          marginTop: '2rem',
+          padding: '1.5rem',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '0.5rem',
+            padding: '0.5rem 0',
+            borderBottom: '1px solid #ddd'
+          }}>
+            <span style={{ fontWeight: 'bold' }}>Total Tasks:</span>
             <span>{taskData.tasks.total}</span>
           </div>
-          <div className={styles.statRow}>
-            <span>Completed:</span>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '0.5rem',
+            padding: '0.5rem 0',
+            borderBottom: '1px solid #ddd'
+          }}>
+            <span style={{ fontWeight: 'bold' }}>Completed:</span>
             <span>{taskData.tasks.completed}</span>
           </div>
-          <div className={styles.statRow}>
-            <span>In Progress:</span>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '0.5rem',
+            padding: '0.5rem 0',
+            borderBottom: '1px solid #ddd'
+          }}>
+            <span style={{ fontWeight: 'bold' }}>In Progress:</span>
             <span>{taskData.tasks.inProgress}</span>
           </div>
-          <div className={`${styles.statRow} ${styles.overdue}`}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '0.5rem 0',
+            color: '#d32f2f',
+            fontWeight: 'bold'
+          }}>
             <span>Overdue:</span>
             <span>{taskData.tasks.overdue}</span>
           </div>
@@ -166,7 +227,19 @@ export default function TaskManagementPage() {
           </div>
         </div>
 
-        <button type="submit" className={styles.submitButton}>
+        <button type="submit" style={{
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          padding: '12px 20px',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          marginTop: '20px',
+          width: '100%',
+          transition: 'background-color 0.3s ease'
+        }}>
           Create Task
         </button>
       </form>
